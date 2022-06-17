@@ -1,0 +1,19 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "rsschool task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrkefir4ik/CRUD-API.git"
+  },
+  "author": "Daniil Aharodnikau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrkefir4ik/CRUD-API/issues"
+  },
+  "homepage": "https://github.com/mrkefir4ik/CRUD-API#readme"
+}
