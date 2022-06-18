@@ -1,6 +1,5 @@
 import http from "http";
-import { createSecureServer } from "http2";
-import { getUsers, getUserByID, createUser } from './controllers/userController.js'
+import { getUsers, getUserByID, createUser, updateUser } from './controllers/userController.js'
 
 const server = http.createServer((req, res) => {
 
@@ -17,7 +16,12 @@ const server = http.createServer((req, res) => {
     }
 
     else if (req.url === '/api/users' && req.method === 'POST') {
-        createSecureServer(req, res);
+        createUser(req, res);
+    }
+
+    else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'PUT') {
+        const id = req.url.split('/')[3];
+        updateUser(req, res, id);
     }
 
     else {

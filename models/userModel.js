@@ -18,6 +18,7 @@ export const findByID = async (id) => {
 export const create = async (user) => {
     return new Promise((resolve, reject) => {
         const newUser = { ...user, id: uuidv4(), };
-        users.push(newUser)
+        users.push(newUser);
+        resolve(newUser);
     })
 }
