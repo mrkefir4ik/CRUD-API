@@ -22,3 +22,11 @@ export const create = async (user) => {
         resolve(newUser);
     })
 }
+
+export const update = async (id, userData) => {
+    return new Promise((resolve, reject) => {
+        const index = users.findIndex((user) => user.id === id);
+        users[index] = { id, ...userData };
+        resolve(users[index]);
+    })
+}

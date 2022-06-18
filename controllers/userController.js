@@ -1,4 +1,4 @@
-import { findAll, findByID, create } from '../models/userModel.js';
+import { findAll, findByID, create, update } from '../models/userModel.js';
 
 
 export const getUsers = async (req, res) => {
@@ -92,29 +92,39 @@ export const createUser = async (req, res) => {
 }
 
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, id) => {
     try {
-        const body = await getPostData(req)
+        const user = await findByID(id)
 
-
-        if (!validateBody(body)) {
-            res.writeHead(400, { 'Context-type': 'application/json' })
-            res.end(JSON.stringify({ message: 'User Object Is Not Valid' }))
+        if (!user) {
+            res.writeHead(404, { 'Context-type': 'application/json' })
+            res.end(JSON.stringify({ message: 'User Not Found' }))
         }
 
         else {
-            const { username, age, hobbies } = JSON.parse(body)
 
-            const user = {
-                username,
-                age,
-                hobbies,
+            const body = await getPostData(req)
+
+
+            if (!validateBody(body)) {
+                res.writeHead(400, { 'Context-type': 'application/json' })
+                res.end(JSON.stringify({ message: 'User Object Is Not Valid' }))
             }
 
-            const newUser = await create(user)
+            else {
+                const { username, age, hobbies } = JSON.parse(body)
 
-            res.writeHead(201, { 'Content-Type': 'application/json' })
-            return res.end(JSON.stringify(newUser))
+                const userData = {
+                    username: username || user.username,
+                    age: age || user.age,
+                    hobbies: hobbies || user.hobbies,
+                }
+
+                const updUser = await update(id, userData)
+
+                res.writeHead(200, { 'Content-Type': 'application/json' })
+                return res.end(JSON.stringify(updUser))
+            }
         }
     }
     catch (error) {
