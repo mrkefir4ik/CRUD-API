@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import http from "http";
 import { getUsers, getUserByID, createUser, updateUser, removeUser } from './controllers/userController.js'
 import { validate } from "uuid";
