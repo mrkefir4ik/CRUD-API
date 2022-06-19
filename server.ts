@@ -3,7 +3,7 @@ import http from "http";
 import { getUsers, getUserByID, createUser, updateUser, removeUser } from './controllers/userController'
 import { validate } from "uuid";
 
-const server = http.createServer((req, res) => {
+export const server = http.createServer((req, res) => {
 
     process.on("uncaughtException", () => {
         res.writeHead(500, { 'Context-type': 'application/json' })
