@@ -4,8 +4,8 @@
   "description": "rsschool task",
   "main": "server.ts",
   "scripts": {
-    "start:dev": "nodemon server.ts",
-    "start:prod": "Set NODE_ENV=production&node server.ts"
+    "start:dev": "cross-env NODE_ENV=development nodemon server.ts",
+    "start:prod": "cross-env NODE_ENV=production nodemon server.ts"
   },
   "repository": {
     "type": "git",
