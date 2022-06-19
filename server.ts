@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import http from "http";
-import { getUsers, getUserByID, createUser, updateUser, removeUser } from './controllers/userController.js'
+import { getUsers, getUserByID, createUser, updateUser, removeUser } from './controllers/userController'
 import { validate } from "uuid";
 
 const server = http.createServer((req, res) => {
@@ -14,9 +14,9 @@ const server = http.createServer((req, res) => {
         getUsers(req, res);
     }
 
-    else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'GET') {
+    else if (req.url && req.url.match(/\/api\/users\/\w+/) && req.method === 'GET') {
 
-        const id = req.url.split('/')[3]
+        const id: string = req.url.split('/')[3]
 
         if (!validate(id)) {
             res.writeHead(400, { 'Context-type': 'application/json' })
@@ -25,14 +25,13 @@ const server = http.createServer((req, res) => {
 
         getUserByID(req, res, id);
 
-        // res.end(JSON.stringify())
     }
 
     else if (req.url === '/api/users' && req.method === 'POST') {
         createUser(req, res);
     }
 
-    else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'PUT') {
+    else if (req.url && req.url.match(/\/api\/users\/\w+/) && req.method === 'PUT') {
         const id = req.url.split('/')[3];
 
         if (!validate(id)) {
@@ -43,7 +42,7 @@ const server = http.createServer((req, res) => {
         updateUser(req, res, id);
     }
 
-    else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'DELETE') {
+    else if (req.url && req.url.match(/\/api\/users\/\w+/) && req.method === 'DELETE') {
         const id = req.url.split('/')[3];
 
         if (!validate(id)) {
@@ -61,7 +60,7 @@ const server = http.createServer((req, res) => {
 
 });
 
-const PORT = process.env.PORT || 5000
+const PORT: number | string = process.env.PORT || 5000
 
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

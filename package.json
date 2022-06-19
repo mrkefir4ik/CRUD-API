@@ -2,11 +2,10 @@
   "name": "crud-api",
   "version": "1.0.0",
   "description": "rsschool task",
-  "type": "module",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
-    "start:dev": "nodemon server.js",
-    "start:prod": "node server.js"
+    "start:dev": "nodemon server.ts",
+    "start:prod": "Set NODE_ENV=production&node server.ts"
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,14 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
-    "nodemon": "^2.0.16",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^18.0.0",
+    "@types/uuid": "^8.3.4",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
   }
 }

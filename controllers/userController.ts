@@ -1,4 +1,5 @@
-import { findAll, findByID, create, update, remove } from '../models/userModel.js';
+import { findAll, findByID, create, update, remove, User } from '../models/userModel';
+
 
 
 export const getUsers = async (req, res) => {
@@ -14,9 +15,9 @@ export const getUsers = async (req, res) => {
     }
 }
 
-export const getUserByID = async (req, res, id) => {
+export const getUserByID = async (req, res, id: string) => {
     try {
-        const result = await findByID(id);
+        const result: User = await findByID(id);
         if (result) {
             res.writeHead(200, { 'Context-type': 'application/json' })
             res.end(JSON.stringify(result))
@@ -33,7 +34,7 @@ export const getUserByID = async (req, res, id) => {
 }
 
 
-const getPostData = (req) => {
+const getPostData = (req: any): Promise<string> => {
     return new Promise((resolve, reject) => {
         try {
             let body = ''
@@ -46,12 +47,12 @@ const getPostData = (req) => {
                 resolve(body)
             })
         } catch (error) {
-            reject(err)
+            reject(error)
         }
     })
 }
 
-function validateBody(body) {
+function validateBody(body: string) {
     let fields = ['username', 'age', 'hobbies'];
     for (let key of fields) {
         if (!JSON.parse(body).hasOwnProperty(key))
@@ -63,7 +64,7 @@ function validateBody(body) {
 
 export const createUser = async (req, res) => {
     try {
-        const body = await getPostData(req)
+        const body: string = await getPostData(req)
 
 
         if (!validateBody(body)) {
@@ -72,9 +73,9 @@ export const createUser = async (req, res) => {
         }
 
         else {
-            const { username, age, hobbies } = JSON.parse(body)
+            const { username, age, hobbies }: User = JSON.parse(body)
 
-            const user = {
+            const user: User = {
                 username,
                 age,
                 hobbies,
@@ -92,9 +93,9 @@ export const createUser = async (req, res) => {
 }
 
 
-export const updateUser = async (req, res, id) => {
+export const updateUser = async (req, res, id: string) => {
     try {
-        const user = await findByID(id)
+        const user: User = await findByID(id)
 
         if (!user) {
             res.writeHead(404, { 'Context-type': 'application/json' })
@@ -114,7 +115,7 @@ export const updateUser = async (req, res, id) => {
             else {
                 const { username, age, hobbies } = JSON.parse(body)
 
-                const userData = {
+                const userData: User = {
                     username: username || user.username,
                     age: age || user.age,
                     hobbies: hobbies || user.hobbies,
