@@ -2,11 +2,12 @@
   "name": "crud-api",
   "version": "1.0.0",
   "description": "rsschool task",
-  "type": "module",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
-    "start:dev": "nodemon server.js",
-    "start:prod": "node server.js"
+    "start:dev": "cross-env NODE_ENV=development nodemon server.ts",
+    "start:prod": "cross-env NODE_ENV=production nodemon server.ts",
+    "start:multi": "nodemon multi.ts",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,20 @@
   },
   "homepage": "https://github.com/mrkefir4ik/CRUD-API#readme",
   "dependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
-    "uuid": "^8.3.2",
-    "nodemon": "^2.0.16"
+    "mocha": "^10.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.0.0",
+    "@types/uuid": "^8.3.4",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
   }
 }
