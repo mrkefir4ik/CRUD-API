@@ -4,6 +4,11 @@ import { validate } from "uuid";
 
 const server = http.createServer((req, res) => {
 
+    process.on("uncaughtException", () => {
+        res.writeHead(500, { 'Context-type': 'application/json' })
+        res.end(JSON.stringify({ message: 'Oops, something went wrong' }))
+    });
+
     if (req.url === '/api/users' && req.method === 'GET') {
         getUsers(req, res);
     }
