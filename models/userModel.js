@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const users = [];
+let users = [];
 
 export const findAll = async () => {
     return new Promise((resolve, reject) => {
@@ -28,5 +28,12 @@ export const update = async (id, userData) => {
         const index = users.findIndex((user) => user.id === id);
         users[index] = { id, ...userData };
         resolve(users[index]);
+    })
+}
+
+export const remove = async (id) => {
+    return new Promise((resolve, reject) => {
+        users = users.filter((user) => user.id !== id)
+        resolve();
     })
 }

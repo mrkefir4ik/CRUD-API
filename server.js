@@ -1,5 +1,6 @@
 import http from "http";
-import { getUsers, getUserByID, createUser, updateUser } from './controllers/userController.js'
+import { getUsers, getUserByID, createUser, updateUser, removeUser } from './controllers/userController.js'
+import { validate } from "uuid";
 
 const server = http.createServer((req, res) => {
 
@@ -10,6 +11,12 @@ const server = http.createServer((req, res) => {
     else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'GET') {
 
         const id = req.url.split('/')[3]
+
+        if (!validate(id)) {
+            res.writeHead(400, { 'Context-type': 'application/json' })
+            res.end(JSON.stringify({ message: 'Invalid ID Format' }))
+        }
+
         getUserByID(req, res, id);
 
         // res.end(JSON.stringify())
@@ -21,7 +28,24 @@ const server = http.createServer((req, res) => {
 
     else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'PUT') {
         const id = req.url.split('/')[3];
+
+        if (!validate(id)) {
+            res.writeHead(400, { 'Context-type': 'application/json' })
+            res.end(JSON.stringify({ message: 'Invalid ID Format' }))
+        }
+
         updateUser(req, res, id);
+    }
+
+    else if (req.url.match(/\/api\/users\/\w+/) && req.method === 'DELETE') {
+        const id = req.url.split('/')[3];
+
+        if (!validate(id)) {
+            res.writeHead(400, { 'Context-type': 'application/json' })
+            res.end(JSON.stringify({ message: 'Invalid ID Format' }))
+        }
+
+        removeUser(req, res, id);
     }
 
     else {
